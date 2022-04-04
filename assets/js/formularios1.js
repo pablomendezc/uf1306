@@ -47,6 +47,7 @@ function validarFormulario() {
     // Declaración de variables
     var valido = true;
     var expRegNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$/;
+    var expRegEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 
     // Objetos document HTML
     var formulario = document.getElementById("form")
