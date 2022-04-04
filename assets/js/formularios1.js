@@ -47,7 +47,7 @@ function validarFormulario() {
     // Declaración de variables
     var valido = true;
     var expRegNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$/;
-    var expRegEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+    var expRegEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
     // Objetos document HTML
     var formulario = document.getElementById("form")
@@ -81,6 +81,14 @@ function validarFormulario() {
         nombre.focus();
         valido = false;
     }
+    // Validar con JavaScript que el campo “email” .
+
+    else if (!expRegEmail.exec(email.value)) {
+        // Si no es válido mostrará el mensaje “de error"
+        alert("El campo email no parece un email válido ");
+        // y se pondrá el foco en el campo “email”
+        email.focus();
+        valido = false;
 
     // Si todos los campos son válidos
     // se mostrará el mensaje “Formulario enviado”.
