@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../assets/css/formularios.css" />
 
     <title>UF1306 | Validación de Formularios</title>
+    <script src="formularios.js"></script>
 </head>
 
 <body>
@@ -28,6 +29,7 @@
         <h2 class="pechado">Menú Principal</h2>
         <input id="icon-menu" name="icon-menu" type="checkbox">
         <label for="icon-menu" class="icon-menu" aria-label="Abrir/Pechar">Menú</label>
+       
         <ul>
             <li>
                 <a href="../index.html">Inicio</a>
@@ -62,7 +64,11 @@
                         <ul>
                             <li>
                                 <label for="name">Nombre:</label>
-                                <input type="text" name="name" id="name" />
+                                <input type="text" name="name" 
+                                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}"
+                                title="solo se admiten letras del alfabeto español y espacios en blanco"
+                                
+                                id="name" />
                             </li>
                             <li>
                                 <label for="email">E-mail:</label>
@@ -87,14 +93,14 @@
 
                     <ul class="enviar">
                         <li>
-                            <input type="submit" value="Enviar" id="enviar" disabled />
+                            <input type="submit" value="Enviar" id="enviar" />
                         </li>
                         <li>
                             <input type="reset" value="Borrar" />
                         </li>
                     </ul>
                 </form>
-                <script src="formularios.js"></script>
+               
             </article>
         </section>
     </main>
