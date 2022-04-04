@@ -62,6 +62,14 @@ function validarFormulario() {
         nombre.focus();
         valido = false;
     }
+    else if (email.value == "") {
+        // Si está vacío se mostrará el mensaje “El campo ‘email’ es obligatorio”
+        alert("El campo 'nombre' es obligatorio");
+        // y se pondrá el foco en el campo “email”
+        email.focus();
+        valido = false;
+    }
+
 
     // Validar con JavaScript que el campo “nombre” sólo acepte caracteres de letras y espacios en blanco.
 
