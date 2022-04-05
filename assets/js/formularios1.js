@@ -48,13 +48,15 @@ function validarFormulario() {
     var valido = true;
     var expRegNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$/;
     var expRegEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-    
+    var expRegTfno = /^[6-9]{1}^[0-9]
 
     // Objetos document HTML
     var formulario = document.getElementById("form")
     var nombre = document.getElementById("name");
     var email = document.getElementById("email");
     var mensaje = document.getElementById("mensaje");
+    var edad = document.getElementById("edad");
+    var tfno = document.getElementById("tfno");
 
     // Validar con JavaScript que el campo “nombre” no esté vacío
 
@@ -94,10 +96,17 @@ function validarFormulario() {
         alert("el texto ha excedido el límite máximo de 255 caracteres")
         mensaje.focus();
         valido = false;
-
-
-
     }
+    else if(edad.value < 18 || edad.value > 120 ){
+        alert("la edad debe ser entre 18 y 120");
+        edad.focus();
+        valido.false
+    }
+    
+
+
+
+
     // Si todos los campos son válidos
     // se mostrará el mensaje “Formulario enviado”.
     if (valido == true) {
