@@ -48,11 +48,13 @@ function validarFormulario() {
     var valido = true;
     var expRegNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$/;
     var expRegEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    
 
     // Objetos document HTML
     var formulario = document.getElementById("form")
     var nombre = document.getElementById("name");
     var email = document.getElementById("email");
+    var mensaje = document.getElementById("mensaje");
 
     // Validar con JavaScript que el campo “nombre” no esté vacío
 
@@ -70,8 +72,6 @@ function validarFormulario() {
         email.focus();
         valido = false;
     }
-
-
     // Validar con JavaScript que el campo “nombre” sólo acepte caracteres de letras y espacios en blanco.
 
     else if (!expRegNombre.exec(nombre.value)) {
@@ -89,7 +89,15 @@ function validarFormulario() {
         // y se pondrá el foco en el campo “email”
         email.focus();
         valido = false;
+    }
+    else if(mensaje.length > 255 ){
+        alert("el texto ha excedido el límite máximo de 255 caracteres")
+        mensaje.focus();
+        valido = false;
 
+
+
+    }
     // Si todos los campos son válidos
     // se mostrará el mensaje “Formulario enviado”.
     if (valido == true) {
