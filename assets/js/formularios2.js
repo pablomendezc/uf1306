@@ -55,7 +55,7 @@ window.onload = function() {
 function validarFormulario( enviar ) {
 
     // Objetos document HTML del formulario
-    var formulario = document.getElementById("formulario")
+    var formulario = document.getElementById("form")
     var nombre = document.getElementById("nombre");
     var edad = document.getElementById("edad");
     var email = document.getElementById("email");
