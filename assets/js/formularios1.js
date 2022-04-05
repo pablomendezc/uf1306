@@ -48,10 +48,10 @@ function validarFormulario() {
     var valido = true;
     var expRegNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$/;
     var expRegEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-    var expRegTfno = /^[6-9]{1}^[0-9]
+    var expRegTfno = /^[6-9]{1}[0-9]{8}$/;
 
     // Objetos document HTML
-    var formulario = document.getElementById("form")
+    var formulario = document.getElementById("form");
     var nombre = document.getElementById("name");
     var email = document.getElementById("email");
     var mensaje = document.getElementById("mensaje");
@@ -100,7 +100,13 @@ function validarFormulario() {
     else if(edad.value < 18 || edad.value > 120 ){
         alert("la edad debe ser entre 18 y 120");
         edad.focus();
-        valido.false
+        valido = false;
+    }
+
+    else if (!expRegTfno.exec(tfno.value)) {
+        alert("el número de tfno no parece válido, solo número, sin espacios en blanco ni otros carecteres");
+        tfno.focus();
+        valido = false;
     }
     
 
