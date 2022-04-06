@@ -115,7 +115,7 @@ function validarFormulario( enviar ) {
     if (
         validarSoloTexto( nombre )
         // && validarNumero( edad, 0, 120 )
-         && validarEmail( email )
+        // && validarEmail( email )
         // && validarTextarea( mensaje, 3, 255 )
         && confirm("¿Deseas enviar el formulario con estos datos?")
     ){
@@ -249,72 +249,72 @@ function validarObligatorio( elemento ) {
     @return: Booleano
 */
 
-function validarSoloTexto( elemento ) {
+function validarEmail( elemento ) {
 
-    // Espresión regular para aceptar sólo letras del alfabeto español
-    // y espacios en blanco
+    
 
     var expresionRegular = /^[a-zA-ZÑñáéíóúÁÉÍÓÚ\s]+$/;
 
-    // validarObligatorio() Escribe un mensaje de error en el DOM
-    // y devuelve true | false
+    
 
     var validacion = validarObligatorio( elemento );
 
     switch ( validacion ) {
 
-        // Si el valor de 'validacion' es TRUE significa que
-        // O no es obligagorio, o contiene algo
-
-        // Validación de campo obligatorio superada en case validacion = true
+        
         case true:
-            // Se ejecuta la validación por expresión regular ( true | false )
+            
             var resultadoExpRegular = expresionRegular.exec( elemento.value );
 
-            // Si el resultado de la validación NO ES true
+            
             if ( !resultadoExpRegular ) {
 
-                // Se ejecuta la función con el mensaje de error en DOM
-                // El mensajeError(2) inserta un mensaje de error en el DOM
-                // y retorna FALSE
+                
                 validacion = mensajeError( 2, elemento );
-                // validacion = false;
+                
             }
         break;
 
-        // Si el valor de 'validacion' es FALSE no hay nada que hacer
-        // case false:
-        //     validacion = false
-        // break;
-
-        // default:
+        
     }
 
-    // Se devuelve el resultado de la validación (true | false)
+    
     return validacion;
+    
+}
 
-    function validarEmail( elemento ) {
+function validarEmail( elemento ) {
 
-                 
-        var expresionRegular = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    
+
+   var expresionRegular= /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
+    
+
+    var validacion = validarObligatorio( elemento );
+
+    switch ( validacion ) {
+
+        
+
+        
+        case true:
+            
+            var resultadoExpRegular = expresionRegular.exec( elemento.value );
+
+            
+            if ( !resultadoExpRegular ) {
+
                 
-        var validacion = validarObligatorio( elemento );
-    
-        switch ( validacion ) {
-    
-                case true:
+                validacion = mensajeError( 3, elemento );
                 
-                var resultadoExpRegular = expresionRegular.exec( elemento.value );
-    
-                
-                if ( !resultadoExpRegular ) {
-    
-                    
-                    validacion = mensajeError( 3, elemento );
-                    
-            break;
-                
-        }
-    
-        return validacion;
+            }
+        break;
+
+        
     }
+
+    
+    return validacion;
+    
+}
