@@ -56,7 +56,7 @@ function validarFormulario( enviar ) {
 
     // Objetos document HTML del formulario
     var formulario = document.getElementById("form")
-    var nombre = document.getElementById("nombre");
+    var nombre = document.getElementById("name");
     var edad = document.getElementById("edad");
     var email = document.getElementById("email");
     var mensaje = document.getElementById("mensaje");
@@ -68,7 +68,7 @@ function validarFormulario( enviar ) {
     if (
         validarSoloTexto( nombre )
         // && validarNumero( edad, 0, 120 )
-        // && validarEmail( email )
+         && validarEmail( email )
         // && validarTextarea( mensaje, 3, 255 )
         && confirm("¿Deseas enviar el formulario con estos datos?")
     ){
@@ -128,7 +128,7 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
 
     // Elemento del DOM donde insertar el texto y aplicar estilos CSS
     var etiquetaInfo = document.getElementById( id );
-    etiquetaInfo.className = "danger";
+    etiquetaInfo.className ="danger";
 
     if ( error != 0 ) {
         // Se pone el foco en el elemento no válido
@@ -140,13 +140,11 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
             texto = "Formulario válido!";
             etiquetaInfo.className = "success";
             etiquetaInfo.innerHTML = texto;
-
             // Excepción a @return FALSE. El formulario es válido!
             validacion = true;
         break;
 
         case 1:
-
             texto += "No puede estar vacío!";
             etiquetaInfo.innerHTML = texto;
         break;
@@ -155,6 +153,12 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
             texto += "Sólo acepta letras del alfabeto español y espacios en blanco";
             etiquetaInfo.innerHTML = texto;
         break;
+
+        case 3:
+            texto += "El correo electrónico no parece un email válido"
+            etiquetaInfo.innerHTML = texto;
+        break;
+
 
         // default:
     }
@@ -216,6 +220,30 @@ function validarObligatorio( elemento ) {
 
     @return: Booleano
 */
+
+function validarSoloEmail( elemento ) {
+
+    var expresionRegular = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        
+    var validacion = validarObligatorio( elemento );
+
+    switch ( validacion ) {
+
+                
+        case true:
+            
+            var resultadoExpRegular = expresionRegular.exec( elemento.value );
+            
+            if ( !resultadoExpRegular ) {
+
+                validacion = mensajeError( 3, elemento );
+                
+            }
+        break;
+        
+        return validacion;
+}
+
 
 function validarSoloTexto( elemento ) {
 
