@@ -52,53 +52,6 @@ window.onload = function() {
     @return: booleano
 */
 
-/*
- * Gestión de eventos y formularios en JavaScript
-*/
-
-/*
-    Ejemplo de función anónima (sin nombre)
-    1.- Ejecuta el código cuando la página se haya cargado completamente
-    2.- al evento de click en el botón de id = 'enviar'
-        ejecuta la función validarFormulario()
-*/
-
-window.onload = function() {
-
-    // Se crea un objeto
-
-    var enviar = document.getElementById("enviar");
-
-    /*
-        addEventListener()
-        Sintáxis:
-        addEventListener( evento-a-escuchar, función-a-lanzar, booleano )
-        Permanece a la escucha de un evento y cuando se activa ejecuta la función
-    */
-
-    // El método addEventListener asigna las funciones a los tipos de evento
-    // Evento onclick, tipo click, sobre el objeto element HTML
-    // con id 'enviar'
-    // Llama a la función validarFormulario()
-    // que se encarga de validar el formulario
-    // Se programa en la fase de burbuja (false),
-    // es decir, del elemento más específico hacia afuera
-
-    enviar.addEventListener('click', validarFormulario, false);
-
-}
-
-
-/*
-    Función validarFormulario()
-    Parámetro: objectHTMLImputElement
-    Realiza las validaciones de los campos de formulario
-    Según los requisitos del Enunciado
-    Si todos los campos son válidos se envía el formulario
-    si no, no se envía el formulario y se deshabilita el botón de enviar
-    @return: booleano
-*/
-
 function validarFormulario( enviar ) {
 
     // Objetos document HTML del formulario
@@ -141,17 +94,22 @@ function validarFormulario( enviar ) {
 
 /*
     Función mensajeError()
+
     Parámetros:
         error: Number. El nº de error a mostrar en el texto de info al usuario
         name: String. El name del input que no supera la validación
         id: String. El ID del elemento que muestra el mensaje de error
+
     Agrupa todos los errores por numeros en una sóla función.
+
     Cada número de error tiene asignado un texto informativo al usuario
+
     Se obtiene un elemennto del DOM por ID donde mostrar un mensaje al usuario
         El ID de ese elemento, por defecto, es 'errores'
         Se inserta en el DOM un texto informativo sobre el fallo de validación
         Se cambia la clase de ese elemento
             para aplicar estilos CSS según el nº de error
+
     @return: Booleano
 */
 
@@ -170,7 +128,7 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
 
     // Elemento del DOM donde insertar el texto y aplicar estilos CSS
     var etiquetaInfo = document.getElementById( id );
-    etiquetaInfo.className = "danger";
+    etiquetaInfo.className ="danger";
 
     if ( error != 0 ) {
         // Se pone el foco en el elemento no válido
@@ -182,13 +140,11 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
             texto = "Formulario válido!";
             etiquetaInfo.className = "success";
             etiquetaInfo.innerHTML = texto;
-
             // Excepción a @return FALSE. El formulario es válido!
             validacion = true;
         break;
 
         case 1:
-
             texto += "No puede estar vacío!";
             etiquetaInfo.innerHTML = texto;
         break;
@@ -197,6 +153,12 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
             texto += "Sólo acepta letras del alfabeto español y espacios en blanco";
             etiquetaInfo.innerHTML = texto;
         break;
+
+        case 3:
+            texto += "El correo electrónico no parece un email válido"
+            etiquetaInfo.innerHTML = texto;
+        break;
+
 
         // default:
     }
@@ -209,11 +171,16 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
 
 /*
     Función validarObligatorio()
+
     Parámetro: objectHTMLImputElement
+
         Comprueba si el campo es obligatorio por su atributo 'required'
         y, de serlo, también debe cumplir que contenga algo.
+
         Si no supera la condición, ejecuta el mensajeError(1) que retorna FALSE
+
         El resto de casos retorna el valor inicial TRUE
+
     @return: Booleano
 */
 
@@ -241,13 +208,42 @@ function validarObligatorio( elemento ) {
 
 /*
     Función validarSoloTexto()
+
     Parámetro: objectHTMLImputElement
+
     Comprueba si la validación supera validarObligatorio()
         De ser así, ejecuta la validación por expresión regular
+
     Si la supera retorna TRUE
+
     Si no, ejecuta el mensajeError(2) y retorna FALSE
+
     @return: Booleano
 */
+
+function validarSoloEmail( elemento ) {
+
+    var expresionRegular = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        
+    var validacion = validarObligatorio( elemento );
+
+    switch ( validacion ) {
+
+                
+        case true:
+            
+            var resultadoExpRegular = expresionRegular.exec( elemento.value );
+            
+            if ( !resultadoExpRegular ) {
+
+                validacion = mensajeError( 3, elemento );
+                
+            }
+        break;
+        
+        return validacion;
+}
+
 
 function validarSoloTexto( elemento ) {
 
@@ -292,29 +288,4 @@ function validarSoloTexto( elemento ) {
 
     // Se devuelve el resultado de la validación (true | false)
     return validacion;
-
-    function validarEmail( elemento ) {
-
-                 
-        var expresionRegular = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-                
-        var validacion = validarObligatorio( elemento );
-    
-        switch ( validacion ) {
-    
-                case true:
-                
-                var resultadoExpRegular = expresionRegular.exec( elemento.value );
-    
-                
-                if ( !resultadoExpRegular ) {
-    
-                    
-                    validacion = mensajeError( 3, elemento );
-                    
-            break;
-                
-        }
-    
-        return validacion;
-    }
+}
