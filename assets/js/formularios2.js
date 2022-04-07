@@ -60,11 +60,11 @@ function validarFormulario( enviar ) {
 
     // Validamos cada uno de los apartados con llamadas a sus funciones correspondientes.
     if (
-        validarSoloTexto( nombre )
+        && validarSoloTexto( nombre )
         && validarNumero( edad, 0, 120 )
         && validarEmail( email )
         && validarTelefono( tfno )
-        // && validarTextarea( mensaje, 3, 255 )
+        && validarTextarea( mensaje, 4, 255 )
         && confirm("¿Deseas enviar el formulario con estos datos?")
     ){
         // El código de error 0 Devuelve TRUE ( @return = true )
@@ -213,7 +213,7 @@ function validarObligatorio( elemento ) {
 */
 
 
-function validarSoloTexto( elemento ) {
+function validarSoloTexto( ( elemento, min, max ) ) {
 
     // Espresión regular para aceptar sólo letras del alfabeto español
     // y espacios en blanco
@@ -223,7 +223,7 @@ function validarSoloTexto( elemento ) {
     // validarObligatorio() Escribe un mensaje de error en el DOM
     // y devuelve true | false
 
-    var validacion = validarObligatorio( elemento );
+    var validacion = validarObligatorio(( elemento, min, max ) );
 
     switch ( validacion ) {
 
@@ -236,23 +236,13 @@ function validarSoloTexto( elemento ) {
             var resultadoExpRegular = expresionRegular.exec( elemento.value );
 
             // Si el resultado de la validación NO ES true
-            if ( !resultadoExpRegular ) {
-
-                // Se ejecuta la función con el mensaje de error en DOM
-                // El mensajeError(2) inserta un mensaje de error en el DOM
-                // y retorna FALSE
-                validacion = mensajeError( 2, elemento );
-                // validacion = false;
-            }
+            if ( elemento.value < min  || elemento.value > max )  {
+                validacion = mensajeError( 2, elemento, min, max );
+            } 
+                  
         break;
 
-        // Si el valor de 'validacion' es FALSE no hay nada que hacer
-        // case false:
-        //     validacion = false
-        // break;
-
-        // default:
-    }
+        }
 
     // Se devuelve el resultado de la validación (true | false)
     return validacion;
@@ -316,6 +306,27 @@ function validarNumnero( elemento, min, max ) {
 
             if ( elemento.value < min  || elemento.value > max )  {
                 validacion = mensajeError( 5, elemento, min, max );
+            } 
+        break;
+    }
+
+    return validacion;
+}
+
+function validarTextarea( elemento, min, max ) {
+
+    var validacion = true;
+
+    vartexto = 
+
+    switch ( validacion ) {
+
+        case true:
+
+            var resultadoExpRegular = expresionRegular.exec( elemento.value );
+
+            if ( texto.length < minimo  || texto.length > maximo )  {
+                validacion = mensajeError( 5, elemento, minimo, maximo );
             } 
         break;
     }
