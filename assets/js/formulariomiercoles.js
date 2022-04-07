@@ -69,6 +69,7 @@ function validarFormulario( enviar ) {
         validarSoloTexto( nombre )
         // && validarNumero( edad, 0, 120 )
          && validarEmail( email )
+         && validarTelefono( )
         // && validarTextarea( mensaje, 3, 255 )
         && confirm("¿Deseas enviar el formulario con estos datos?")
     ){
@@ -288,4 +289,29 @@ function validarSoloTexto( elemento ) {
 
     // Se devuelve el resultado de la validación (true | false)
     return validacion;
+}
+
+
+
+function validarSoloEmail( elemento ) {
+
+    var expresionRegular = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        
+    var validacion = validarObligatorio( elemento );
+
+    switch ( validacion ) {
+
+                
+        case true:
+            
+            var resultadoExpRegular = expresionRegular.exec( elemento.value );
+            
+            if ( !resultadoExpRegular ) {
+
+                validacion = mensajeError( 3, elemento );
+                
+            }
+        break;
+        
+        return validacion;
 }

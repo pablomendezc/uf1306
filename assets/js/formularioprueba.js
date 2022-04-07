@@ -52,7 +52,6 @@ function validarFormulario( enviar ) {
     var nombre = document.getElementById("name");
     var edad = document.getElementById("edad");
     var email = document.getElementById("email");
-    var tfno = document.getElementById("tfno");
     var mensaje = document.getElementById("mensaje");
 
     // Resultado de la validación: por defecto, FALSE
@@ -63,7 +62,6 @@ function validarFormulario( enviar ) {
         validarSoloTexto( nombre )
         // && validarNumero( edad, 0, 120 )
         && validarEmail( email )
-        && validarTelefono( tfno )
         // && validarTextarea( mensaje, 3, 255 )
         && confirm("¿Deseas enviar el formulario con estos datos?")
     ){
@@ -82,6 +80,9 @@ function validarFormulario( enviar ) {
         // return false; // validacion sigue siendo FALSE
     }
 
+    // console.log('Error: ' + error + '\n');
+    console.log('Validación: ' + validacion + '\n');
+    console.log('----------------------------------');
     // Booleano final de la validación (true | false )
     return validacion;
 }
@@ -151,11 +152,6 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
             etiquetaInfo.innerHTML = texto;
         break;
 
-        case 4:
-            texto += "El teléfono no parece correcto. Escriba sólo números sin espacios";
-            etiquetaInfo.innerHTML = texto;
-        break;
-
         // default:
     }
 
@@ -207,7 +203,6 @@ function validarObligatorio( elemento ) {
     @return: Booleano
 */
 
-
 function validarSoloTexto( elemento ) {
 
     // Espresión regular para aceptar sólo letras del alfabeto español
@@ -254,47 +249,20 @@ function validarSoloTexto( elemento ) {
 }
 
 
-
 function validarEmail( elemento ) {
 
     var expresionRegular = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
-
     var validacion = validarObligatorio( elemento );
 
     switch ( validacion ) {
 
         case true:
-
             var resultadoExpRegular = expresionRegular.exec( elemento.value );
 
             if ( !resultadoExpRegular ) {
+
                 validacion = mensajeError( 3, elemento );
-            }
-        break;
-    }
-
-    return validacion;
-}
-
-
-
-
-
-function validarTelefono( elemento ) {
-
-    var expresionRegular = /^[6-9]{1}[0-9]{8}$/;
-
-    var validacion = validarObligatorio( elemento );
-
-    switch ( validacion ) {
-
-        case true:
-
-            var resultadoExpRegular = expresionRegular.exec( elemento.value );
-
-            if ( !resultadoExpRegular ) {
-                validacion = mensajeError( 4, elemento );
             }
         break;
     }
