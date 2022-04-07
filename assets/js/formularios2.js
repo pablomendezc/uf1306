@@ -54,14 +54,14 @@ function validarFormulario( enviar ) {
     var email = document.getElementById("email");
     var tfno = document.getElementById("tfno");
     var mensaje = document.getElementById("mensaje");
-
+    
     // Resultado de la validación: por defecto, FALSE
     var validacion = false;
 
     // Validamos cada uno de los apartados con llamadas a sus funciones correspondientes.
     if (
         validarSoloTexto( nombre )
-        // && validarNumero( edad, 0, 120 )
+        && validarNumero( edad, 0, 120 )
         && validarEmail( email )
         && validarTelefono( tfno )
         // && validarTextarea( mensaje, 3, 255 )
@@ -156,6 +156,11 @@ function mensajeError ( error, elemento="", min=0, max=300, id="errores" ) {
             etiquetaInfo.innerHTML = texto;
         break;
 
+        case 5:
+            texto += "La edad debe estar comprendido entre";
+            texto += min + "y" + max;
+            etiquetaInfo.innerHTML = texto;
+        break;
         // default:
     }
 
@@ -278,14 +283,11 @@ function validarEmail( elemento ) {
 }
 
 
-
-
-
 function validarTelefono( elemento ) {
 
     var expresionRegular = /^[6-9]{1}[0-9]{8}$/;
 
-    var validacion = validarObligatorio( elemento );
+    var validacion = truevalidarObligatorio( elemento );
 
     switch ( validacion ) {
 
@@ -296,6 +298,25 @@ function validarTelefono( elemento ) {
             if ( !resultadoExpRegular ) {
                 validacion = mensajeError( 4, elemento );
             }
+        break;
+    }
+
+    return validacion;
+}
+
+function validarNumnero( elemento, min, max ) {
+
+    var validacion = true;
+
+    switch ( validacion ) {
+
+        case true:
+
+            var resultadoExpRegular = expresionRegular.exec( elemento.value );
+
+            if ( elemento.value < min  || elemento.value > max )  {
+                validacion = mensajeError( 5, elemento, min, max );
+            } 
         break;
     }
 
